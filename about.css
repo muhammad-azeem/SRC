@@ -1,0 +1,133 @@
+/* About hero section */
+.about-hero {
+   
+  background-image: url('../img/aboutus.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    margin: -2rem -2rem 2rem -2rem;
+}
+.about-hero p{
+       font-size: 1.5em;
+font-weight: bold;
+     //   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.about-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Mission section */
+.mission {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.mission h2 {
+    margin-bottom: 1.5rem;
+
+}
+
+.mission p {
+    line-height: 1.8;
+}
+
+/* Values section */
+.values {
+    background: #f9f9f9;
+    padding: 4rem 2rem;
+    margin: 0 -2rem;
+}
+
+.values h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.value-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.value-card h3 {
+    margin-bottom: 1rem;
+    color: #3498db;
+}
+
+/* Team section */
+.team {
+    padding: 4rem 2rem;
+}
+
+.team h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
+}
+
+.team-member h3 {
+    margin-bottom: 0.5rem;
+}
+
+.team-member p {
+    color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .about-hero {
+        height: 250px;
+    }
+
+    .about-hero h1 {
+        font-size: 2rem;
+    }
+
+.about-hero p{
+       font-size: 1em;
+font-weight: bold;
+    
+    .values-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}

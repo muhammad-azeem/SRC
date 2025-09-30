@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard - Student Residence Connect</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body class="admin-dashboard">
+    <header class="admin-header">
+        <div class="container">
+            <div class="admin-header-content">
+                <h1>Admin Dashboard</h1>
+                <button id="logout-btn" class="logout-btn" style="background-color: #f44336; color: white; padding: 10px 20px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="container">
+            <!-- Inline flex container for button and search bar -->
+            <div class="admin-actions" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 20px;">
+  <button id="add-hostel-btn" class="primary-btn" style="flex: 0 1 auto; min-width: 150px;">
+    <i class="fas fa-plus"></i> Add New Hostel
+  </button>
+
+  <input
+  type="text"
+  id="search-input"
+  placeholder="Search hostel by name"
+  style="flex: 1 1 250px; min-width: 200px; max-width: 300px; padding: 8px 12px; border: 2px solid #4A90E2; border-radius: 6px; font-size: 16px; outline: none;"
+/>
+
+</div>
+
+
+            <div class="hostels-table-container">
+                <table class="hostels-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Rent</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hostels-table-body">
+                        <!-- Hostels will be loaded here via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Hostel Modal -->
+    <div id="hostel-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add New Hostel</h2>
+                <button class="close-modal" style="background-color: #f44336; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; font-size: 20px; cursor: pointer; transition: background-color 0.3s; position: absolute; top: 10px; right: 10px;"
+                        onmouseover="this.style.backgroundColor='#d32f2f'" 
+                        onmouseout="this.style.backgroundColor='#f44336'">
+                    &times;
+                </button>
+            </div>
+            <form id="hostel-form">
+                <div class="form-group">
+                    <label for="hostel-name">Name</label>
+                    <input type="text" id="hostel-name" required />
+                </div>
+                <div class="form-group">
+                    <label for="hostel-description">Description</label>
+                    <textarea id="hostel-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hostel-rent">Rent (₨)</label>
+                    <input type="number" id="hostel-rent" required min="2000" />
+                </div>
+                <div class="form-group">
+                    <label for="hostel-address">Address</label>
+                    <input type="text" id="hostel-address" required />
+                </div>
+                <div class="form-group">
+                    <label for="hostel-amenities">Amenities</label>
+                    <div class="amenities-checkboxes">
+                        <label><input type="checkbox" value="wifi" /> WiFi</label>
+                        <label><input type="checkbox" value="ac" /> AC</label>
+                        <label><input type="checkbox" value="meals" /> Meals</label>
+                        <label><input type="checkbox" value="laundry" /> Laundry</label>
+                        <label><input type="checkbox" value="gym" /> Gym</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="hostel-images">Images (URLs)</label>
+                    <div id="image-inputs">
+                        <input type="url" class="image-url" required placeholder="Enter image URL" />
+                    </div>
+                    <button type="button" class="add-image-btn" 
+                        style="display: inline-block; background-color: #007bff; color: white; padding: 12px 16px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 10px;"
+                        onmouseover="this.style.backgroundColor='#0056b3'"  
+                        onmouseout="this.style.backgroundColor='#007bff'">
+                        Add Another Image
+                    </button>
+                </div>
+
+                <label for="hostel-coordinates" style="color: black; display: block; margin-bottom: 5px;">Google Maps Link:(Put before Coordinates : https://www.google.com/maps/dir/?api=1&destination=)</label>
+                <input type="url" id="hostel-coordinates" placeholder="Paste Google Maps link" style="width: 100%; max-width: 550px; padding: 10px; border: 2px solid #ccc; border-radius: 5px;" />
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn" style="margin-top: 15px">Save Hostel</button>
+                    <button type="button" class="secondary-btn close-modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/admin/dashboard.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("logout-btn").addEventListener("click", function () {
+                window.location.href = "../index.html";
+            });
+        });
+
+        document.querySelector(".add-image-btn").addEventListener("click", () => {
+            const imageInputs = document.getElementById("image-inputs");
+            const totalInputs = imageInputs.getElementsByTagName("input").length;
+
+            if (totalInputs < 3) {
+                const newInput = document.createElement("input");
+                newInput.type = "url";
+                newInput.className = "image-url";
+                newInput.required = true;
+                newInput.placeholder = "Enter image URL";
+                imageInputs.appendChild(newInput);
+            } else {
+                alert("You can only add up to 3 images.");
+            }
+        });
+    </script>
+</body>
+</html>
